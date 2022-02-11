@@ -1,0 +1,31 @@
+/*
+
+##################################################################
+
+
+
+!/.gitignore
+
+# #We include all vscode launch commands
+!/.vscode
+
+#Ignoring the AirSim folder and its content
+/AirSim
+
+# #But not the folder
+!/AirSim/
+
+/AirSim/*
+
+################Scripts for drone actions################
+#We include PythonClient and its content
+!/AirSim/PythonClient/
+
+#But ignore the content
+/AirSim/PythonClient/*
+
+#We need the MavSDK folder
+!/AirSim/PythonClient/MavSDK/
+
+#And AirSim settings
+!/AirSimSettings/

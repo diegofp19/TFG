@@ -1,0 +1,113 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        ///////////////////////////////////////////////////////////////////////////
+        // Run AirSim and associated programs (some are tests)
+        ///////////////////////////////////////////////////////////////////////////
+        {
+            // Ejemplo para hacer debug al script de Python ejecutado desde WSL2 wsl2Modifybashrc
+            "name": "wsl2Modifybashrc.py test",
+            "type": "python",
+            "request": "launch",
+            "program": "AirSim/run/wsl2Modifybashrc.py",
+            "console": "integratedTerminal",
+            "args": ["TestA", "TestB"]
+        },
+        {
+            // Ejemplo para hacer debug al script de Python ejecutado desde WSL2 wsl2ModifyUDPport
+            "name": "wsl2ModifyMavlinkBug.py test",
+            "type": "python",
+            "request": "launch",
+            "program": "AirSim/run/wsl2ModifyMavlinkBug.py",
+            "console": "integratedTerminal",
+            "args": ["TestA"]
+        },
+        {
+            // Ejemplo para hacer debug al script de Python ejecutado desde WSL2 wsl2ModifyUDPport
+            "name": "wsl2ModifyUDPport.py test",
+            "type": "python",
+            "request": "launch",
+            "program": "AirSim/run/wsl2ModifyUDPport.py",
+            "console": "integratedTerminal",
+            "args": ["TestA"]
+        },
+        ///////////////////////////////////////////////////////////////////////////
+        // MavSDK
+        ///////////////////////////////////////////////////////////////////////////
+        {
+            // Lanzar PX4 y MavSDK para múltiples drones
+            "type": "bashdb",
+            "request": "launch",
+            "name": "PX4 MavSDK Multiple UAV",
+            "cwd": "${workspaceFolder}",
+            "program": "AirSim/run/px4_mavsdk_multiple.sh",
+            "args": [
+                2, // ,  // Number of UAVs to initialize
+            ]
+        },
+        {
+            // Lanzar PX4 y MavSDK para múltiples drones
+            "type": "bashdb",
+            "request": "launch",
+            "name": "PX4 MavSDK Un UAV",
+            "cwd": "${workspaceFolder}",
+            "program": "AirSim/run/px4_mavsdk_multiple.sh",
+            "args": [
+                1// ,  // Number of UAVs to initialize
+            ]
+        },
+        {
+            // Lanzar PX4 (sin MavSDK) para múltiples drones en QGroundControl
+            "type": "bashdb",
+            "request": "launch",
+            "name": "PX4 Multiple UAV",
+            "cwd": "${workspaceFolder}",
+            "program": "AirSim/run/px4_multiple.sh",
+            "args": [
+                5,  // Number of UAVs to initialize
+            ]
+        },
+        {
+             // Lanzar Un dron con PX4 (sin MavSDK)  en QGroundControl
+             "type": "bashdb",
+             "request": "launch",
+             "name": "PX4 Solo un UAV",
+             "cwd": "${workspaceFolder}",
+             "program": "AirSim/run/px4_multiple.sh",
+             "args": [
+                 1,  // Number of UAVs to initialize
+             ]
+         },
+         {
+            // Lanzar Un dron con PX4 (sin MavSDK)  en QGroundControl
+            "type": "bashdb",
+            "request": "launch",
+            "name": "TEST",
+            "cwd": "${workspaceFolder}",
+            "program": ".local/lib/python3.8/site-packages/mavsdk/bin/mavsdk_server udp://:14551 -p 50051",
+            "args": []
+        },
+         {
+             // Lanzar main
+             "name": "MavSDK main",
+             "type": "python",
+             "request": "launch",
+             "program": "AirSim/PythonClient/MavSDK/main.py",
+             "console": "integratedTerminal",
+             "args": ["14551"]
+         },
+         {
+             // Lanzar ejemplo de despegue con AirSim, PX4 y MavSDK múltiples drones
+             // Implementados los drones cada uno de forma individual
+             "name": "MavSDK takeoffLandMultiple",
+             "type": "python",
+             "request": "launch",
+             "program": "AirSim/PythonClient/MavSDK/takeoffLandMultiple.py",
+             "console": "integratedTerminal",
+             "args": ["", ""]
+         },
+     ]
+ }
