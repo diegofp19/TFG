@@ -12,7 +12,7 @@
 #Ignoring the AirSim folder and its content
 /AirSim
 
-# #But not the folder
+#But not the folder
 !/AirSim/
 
 /AirSim/*

@@ -10,7 +10,7 @@ async def camera():
 
     pp = pprint.PrettyPrinter(indent=4)
 
-    client = airsim.VehicleClient()
+    client = airsim.MultirotorClient()
 
     airsim.wait_key('Press any key to get camera parameters')
     for camera_id in range(2):
@@ -29,8 +29,8 @@ async def camera():
 
     for x in range(50): # do few times
         #xn = 1 + x*5  # some random number
-        client.simSetVehiclePose(airsim.Pose(airsim.Vector3r(x, 0, -2), airsim.to_quaternion(0, 0, 0)), True)
-        time.sleep(0.1)
+        #client.simSetVehiclePose(airsim.Pose(airsim.Vector3r(x, 0, -2), airsim.to_quaternion(0, 0, 0)), True)
+        #time.sleep(0.1)
 
         responses = client.simGetImages([
             airsim.ImageRequest("0", airsim.ImageType.Scene),

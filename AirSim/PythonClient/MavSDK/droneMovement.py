@@ -27,19 +27,7 @@ async def move(drone):
         return
 
     print("-- Go 0m North, 0m East, -5m Down within local coordinate system")
-    await drone.offboard.set_position_ned(PositionNedYaw(0.0, 0.0, -5.0, 0.0))
-    await asyncio.sleep(5)
-
-    print("-- Go 5m North, 0m East, -5m Down within local coordinate system, turn to face East")
-    await drone.offboard.set_position_ned(PositionNedYaw(5.0, 0.0, -5.0, 90.0))
-    await asyncio.sleep(5)
-
-    print("-- Go 5m North, 10m East, -5m Down within local coordinate system")
-    await drone.offboard.set_position_ned(PositionNedYaw(5.0, 10.0, -5.0, 90.0))
-    await asyncio.sleep(5)
-
-    print("-- Go 0m North, 10m East, 0m Down within local coordinate system, turn to face South")
-    await drone.offboard.set_position_ned(PositionNedYaw(0.0, 10.0, 0.0, 180.0))
+    await drone.offboard.set_position_ned(PositionNedYaw(-185.0, 60.0, -20.0, 0.0))
     await asyncio.sleep(5)
 
 
