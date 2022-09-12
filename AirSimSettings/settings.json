@@ -11,7 +11,8 @@
           "AutoExposureSpeed": 100,
           "MotionBlurAmount": 0
         }
-    ]
+    ],
+    "Gimbal": { "Stabilization": 1, "Pitch": -90, "Roll": 0, "Yaw": 0 }
   },
     "ClockType": "SteppableClock",
     "SimMode": "Multirotor",
@@ -20,6 +21,10 @@
       "Longitude": -4.012101,
       "Altitude": 122
     },
+    "SubWindows": [
+      {"WindowID": 0, "ImageType": 0, "CameraName": "front-center", "Visible": true}
+    ],
+
     "Vehicles": {
       "Drone1": {
         "VehicleType": "PX4Multirotor",
@@ -37,6 +42,25 @@
         "LocalHostIp": "192.168.1.13",
         "QgcHostIp": "127.0.0.1",
         "QgcPort": 14550,
+        "Cameras": {
+          "front-center" : {
+            "CaptureSettings": [
+              {
+                  "ImageType": 0,
+                  "Width": 256,
+                  "Height": 144,
+                  "FOV_Degrees": 90
+              }
+          ],
+          "X": 0.5,
+          "Y": 0.0,
+          "Z": -1.5,
+          "Pitch": 0.0,
+          "Roll": 0.0,
+          "Yaw": 0.0
+          }
+
+      },
         "Sensors": {
           "Barometer": {
             "SensorType": 1,
