@@ -26,20 +26,22 @@ async def move(drone):
         await drone.action.disarm()
         return
 
-    print("-- Go 15m Up to avoid trees")
-    await drone.offboard.set_position_ned(PositionNedYaw(0, 0, -15, 0))
-    await asyncio.sleep(10)
-    # Camera down mode
-    print("-- Go 90m South, 100m East, -15m Down within local coordinate system")
-    await drone.offboard.set_position_ned(PositionNedYaw(70, 100, -15, 0))
     # print("-- Go 15m Up to avoid trees")
-    # await drone.offboard.set_position_ned(PositionNedYaw(0, 0, -15, 180))
+    # await drone.offboard.set_position_ned(PositionNedYaw(0, 0, -15, 0))
     # await asyncio.sleep(10)
+    # Camera down mode
     # print("-- Go 90m South, 100m East, -15m Down within local coordinate system")
-    # await drone.offboard.set_position_ned(PositionNedYaw(90, 100, -15, 180))
-    # await asyncio.sleep(10)
-    # print("-- Go -2m Down")
-    # await drone.offboard.set_position_ned(PositionNedYaw(90, 100, 5, 180))
+    # await drone.offboard.set_position_ned(PositionNedYaw(70, 100, -15, 0))
+    print("-- Go 15m Up to avoid trees")
+    await drone.offboard.set_position_ned(PositionNedYaw(0, 0, -15, 180))
+    await asyncio.sleep(10)
+    print("-- Go 90m South, 100m East, -15m Down within local coordinate system")
+    await drone.offboard.set_position_ned(PositionNedYaw(90, 100, -15, 180))
+    await asyncio.sleep(10)
+    print("-- Go -2m Down")
+    await drone.offboard.set_position_ned(PositionNedYaw(90, 100, 5, 180))
+    await asyncio.sleep(40)
+    await drone.action.return_to_launch()
 
 
 

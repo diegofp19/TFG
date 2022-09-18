@@ -11,6 +11,7 @@ def rescale_frame(frame, percent=75):
 
 def calculate_speed(frame):
     cv2.line(frame, (int(1920*0.5*0.45), 0), (int(1920*0.5*0.45), 486), (255, 255, 0), 1)
+    # 31 m
     pass
 
 def main():
@@ -24,18 +25,19 @@ def main():
     cap = cv2.VideoCapture("../test1.mp4")
 
 
-    # Creating Background subtractor using KNN algorithm (test parameters in each video to get the optimal result)
-    object_detector = cv2.createBackgroundSubtractorKNN(history=100, dist2Threshold=10000, detectShadows=False)
+    # Object detection from Stable camera
+    out = cv2.VideoWriter('out.mp4',cv2.VideoWriter_fourcc(*'mp4v'), 12.0, (864,486))
+    object_detector = cv2.createBackgroundSubtractorKNN(history=0, dist2Threshold=15000, detectShadows=True)
     while True:
         ret, frame = cap.read()
         frame = rescale_frame(frame, percent=45)
         height, width, _ = frame.shape
 
-        # To draw the line where velocity is calculated uncomment the next line and adjust it to the desired video
         # calculate_speed(frame)
         
-        # Extract Region of interest to get only the part of the video that we want, specifically the road that is being monitorized
-        roi = frame[0: 460,290: 1152]
+        # Extract Region of interest
+        # roi = frame[0: 460,290: 1152]
+        roi = frame[300: 420,0: 1152]
     
 
         # 1. Object Detection
@@ -46,31 +48,35 @@ def main():
         for cnt in contours:
             # Calculate area and remove small elements
             area = cv2.contourArea(cnt)
-            if area > 200:
+            if area > 400:
+                # Draw contours if needed
+                # cv2.drawContours(roi, [cnt], -1, (0, 0, 255), )
                 x, y, w, h = cv2.boundingRect(cnt)
                 detections.append([x, y, w, h])
 
-        # 2. Object Tracking passing to the tracker method class
+        # 2. Object Tracking
         boxes_ids = tracker.update(detections)
         for box_id in boxes_ids:
             x, y, w, h, id, = box_id
             cv2.putText(roi, "obj: " + str(id), (x, y - 15), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
             cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-        cv2.putText(frame, 'Detection Region', (0, 380), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)    
-        cv2.rectangle(frame, (0,290), (1152,460), (0, 255, 0), 1)
-        #Binarized video
-        cv2.imshow("Masked Region", mask)
-        #Video of only the detection region
-        cv2.imshow("Detection Region", roi)
-        # Resulting video
-        cv2.imshow("Frame", frame)
+        if ret == True:
+            cv2.putText(frame, 'Detection Region', (0, 280), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)    
+            cv2.rectangle(frame, (0,290), (1152,460), (0, 255, 0), 1)
+            cv2.imshow("Frame", frame)
+            frame = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
+            out.write(mask)
+            cv2.imshow("Masked Region", mask)
+            cv2.imshow("Detection Region", roi)
+            
 
         key = cv2.waitKey(30)
         if key == 27:
             break
 
     cap.release()
+    out.release()
     cv2.destroyAllWindows()
 
 
